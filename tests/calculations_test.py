@@ -81,3 +81,24 @@ def test_get_nth_fibonacci_large_value():
     n = 15
     result = get_nth_fibonacci(n)
     assert result == 610
+
+def test_area_of_circle_negative_radius_error_message():
+    """Ensure correct error message is raised for negative radius."""
+    with pytest.raises(ValueError) as exc_info:
+        area_of_circle(-5)
+
+    assert "Radius cannot be negative" in str(exc_info.value)
+
+def test_get_nth_fibonacci_negative():
+    """Test Fibonacci with negative input (edge case)."""
+    with pytest.raises(ValueError):
+        get_nth_fibonacci(-5)
+
+
+def test_area_of_circle_float():
+    """Test area calculation with float radius."""
+    radius = 2.5
+    result = area_of_circle(radius)
+    assert round(result, 2) == 19.63
+
+
