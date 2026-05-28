@@ -7,7 +7,7 @@ import pytest
 
 # Project Modules
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
-from calculations import area_of_circle, get_nth_fibonacci   # noqa: E402
+from calculations import area_of_circle, get_nth_fibonacci  # noqa: E402
 
 
 def test_area_of_circle_positive_radius():
@@ -58,13 +58,47 @@ def test_get_nth_fibonacci_one():
     assert result == 1
 
 
-# def test_get_nth_fibonacci_ten():
-#     """Test with n=10."""
-#     # Arrange
-#     n = 10
+def test_get_nth_fibonacci_ten():
+    """Test with n=10."""
+    # Arrange
+    n = 10
 
-#     # Act
-#     result = get_nth_fibonacci(n)
+    # Act
+    result = get_nth_fibonacci(n)
 
-#     # Assert
-#     assert result == 89
+    # Assert
+    assert result == 55
+
+def test_area_of_circle_negative_radius():
+    """Test with negative radius."""
+    radius = -1
+
+    with pytest.raises(ValueError):
+        area_of_circle(radius)
+
+def test_get_nth_fibonacci_large_value():
+    """Test with a larger Fibonacci value."""
+    n = 15
+    result = get_nth_fibonacci(n)
+    assert result == 610
+
+def test_area_of_circle_negative_radius_error_message():
+    """Ensure correct error message is raised for negative radius."""
+    with pytest.raises(ValueError) as exc_info:
+        area_of_circle(-5)
+
+    assert "Radius cannot be negative" in str(exc_info.value)
+
+def test_get_nth_fibonacci_negative():
+    """Test Fibonacci with negative input (edge case)."""
+    with pytest.raises(ValueError):
+        get_nth_fibonacci(-5)
+
+
+def test_area_of_circle_float():
+    """Test area calculation with float radius."""
+    radius = 2.5
+    result = area_of_circle(radius)
+    assert round(result, 2) == 19.63
+
+
